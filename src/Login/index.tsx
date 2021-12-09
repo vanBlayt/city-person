@@ -2,6 +2,7 @@ import React from 'react';
 import './index.scss';
 import { TextField, Button } from '@material-ui/core';
 import { useForm } from 'react-hook-form';
+import axios from 'axios';
 
 
 function Login() {
@@ -12,9 +13,19 @@ function Login() {
     formState: { errors },
   } = useForm();
 
-  function loginSubmit(e: any) {
-    const { username, password } = e;
-    console.log(username, password);
+  async function loginSubmit(e: any) {
+    try {
+      const res = await axios.post('http://localhost:8080/login', e)
+      console.log(res);
+      if (res && res.data) {
+        // 登录成功
+
+      } else {
+        // 登录失败
+      }
+    } catch (e:any) {
+      throw new Error(e);
+    }
   }
 
   return (
