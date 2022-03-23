@@ -2,7 +2,10 @@ import React from 'react';
 import './index.scss';
 import { TextField, Button } from '@material-ui/core';
 import { useForm } from 'react-hook-form';
-import axios from 'axios';
+import { post } from '../API/axios';
+import { LOGIN } from '../API/index'
+
+import { useNavigate } from "react-router-dom";
 
 
 function Login() {
@@ -12,18 +15,22 @@ function Login() {
     handleSubmit,
     formState: { errors },
   } = useForm();
+  // 跳转
+  const navigator = useNavigate();
 
   async function loginSubmit(e: any) {
     try {
-      const res = await axios.post('http://localhost:8080/login', e)
+      const res = await post(LOGIN, {},e)
       console.log(res);
       if (res && res.data) {
         // 登录成功
-
+        navigator('/');
       } else {
         // 登录失败
+        console.log('账号或密码错误')
+
       }
-    } catch (e:any) {
+    } catch (e: any) {
       throw new Error(e);
     }
   }
