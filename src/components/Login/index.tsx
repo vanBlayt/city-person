@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import './index.scss';
 import { TextField, Button } from '@material-ui/core';
 import { useForm } from 'react-hook-form';
-import { post } from '../API/axios';
-import { LOGIN } from '../API/index'
-
+import { post } from '../../API/axios';
+import { LOGIN } from '../../API/index';
 import { useNavigate } from "react-router-dom";
+import { SetLocalStorage } from 'utils/cache';
 
 
 function Login() {
@@ -13,17 +13,17 @@ function Login() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
   } = useForm();
   // 跳转
   const navigator = useNavigate();
 
   async function loginSubmit(e: any) {
     try {
-      const res = await post(LOGIN, {},e)
-      console.log(res);
+      const res = await post(LOGIN, {}, e)
       if (res && res.data) {
         // 登录成功
+        const { token = '' } = res.data;
+        SetLocalStorage('token', token);
         navigator('/');
       } else {
         // 登录失败
