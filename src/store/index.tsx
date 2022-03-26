@@ -18,7 +18,7 @@ type Action = { type: 'loginStatusChange', payload: IStoreState }
 
 // reducer
 const reducer = (state: IStoreState, action: Action) => {
-  const { login } = state;
+  const { login } = action.payload;
   switch (action.type) {
     case 'loginStatusChange':
       return { ...state, login }

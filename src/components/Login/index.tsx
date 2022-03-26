@@ -7,6 +7,9 @@ import { LOGIN } from '../../API/index';
 import { useNavigate } from "react-router-dom";
 import { SetLocalStorage } from 'utils/cache';
 
+// 改变登录状态
+import { useLoginStatusChange } from 'store/commonHook'
+
 
 function Login() {
   // 初始化form表单
@@ -17,6 +20,9 @@ function Login() {
   // 跳转
   const navigator = useNavigate();
 
+  //改变登录状态
+  const [loginStatus] = useLoginStatusChange()
+
   async function loginSubmit(e: any) {
     try {
       const res = await post(LOGIN, {}, e)
@@ -24,9 +30,10 @@ function Login() {
         // 登录成功
         const { token = '' } = res.data;
         SetLocalStorage('token', token);
+        loginStatus(true);
         navigator('/');
       } else {
-        // 登录失败
+        // 登录失败 TODO
         console.log('账号或密码错误')
 
       }

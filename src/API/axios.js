@@ -1,19 +1,24 @@
 import axios from "axios";
+import { GetLocalStorage } from 'utils/cache';
 const domain = 'http://127.0.0.1:8080/';
 
-function getPath (url) {
-  return domain + url
-}
-
-var Axios = axios.create();
+var Axios = axios.create({
+  baseURL: domain,
+  timeout: 6000
+});
 // 请求拦截
 Axios.interceptors.request.use(
   (config) => {
-    // token认证写在这里
+
+    const token = GetLocalStorage('token');
+    if (token) {
+      // token认证写在这里
+      config.headers.token = token;
+    }
     return config;
   },
   (err) => {
-    Promise.reject(err);
+    return Promise.reject(err);
   }
 );
 // 响应拦截
@@ -22,14 +27,14 @@ Axios.interceptors.response.use(
     return config;
   },
   (err) => {
-    Promise.reject(err);
+    return Promise.reject(err);
   }
 );
 // get封装
 export function get (url, params = {}) {
   return new Promise((resolve, reject) => {
     Axios({
-      url: getPath(url),
+      url,
       params,
       method: "get",
     })
@@ -39,20 +44,18 @@ export function get (url, params = {}) {
       .catch((err) => {
         reject(err);
       });
-  });
+  })
 }
 // post封装
 export function post (url, params = {}, data = {}) {
-  console.log(getPath(url),params,data)
   return new Promise((resolve, reject) => {
     Axios({
-      url: getPath(url),
+      url,
       method: "post",
       params,
       data,
     })
       .then((res) => {
-        console.log(res)
         resolve(res);
       })
       .catch((err) => {
@@ -64,7 +67,7 @@ export function post (url, params = {}, data = {}) {
 export function del (url, params = {}, data = {}) {
   return new Promise((resolve, reject) => {
     Axios({
-      url: getPath(url),
+      url,
       method: "delete",
       params,
       data,
@@ -81,7 +84,7 @@ export function del (url, params = {}, data = {}) {
 export function getBlob (url, params = {}) {
   return new Promise((resolve, reject) => {
     Axios({
-      url: getPath(url),
+      url,
       method: "get",
       params,
       responseType: 'blob'

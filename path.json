@@ -5,11 +5,14 @@
       "@/*": [
         "src/*"
       ],
-      "utils/*":[
+      "utils/*": [
         "src/utils/*"
       ],
-      "components/*":[
+      "components/*": [
         "src/components/*"
+      ],
+      "store/*": [
+        "src/store/*"
       ]
     }
   }
