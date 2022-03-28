@@ -13,6 +13,9 @@
       ],
       "store/*": [
         "src/store/*"
+      ],
+      "static/*": [
+        "src/static/*"
       ]
     }
   }

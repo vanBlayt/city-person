@@ -1,6 +1,8 @@
 import axios from "axios";
 import { GetLocalStorage } from 'utils/cache';
-const domain = 'http://127.0.0.1:8080/';
+// const domain = 'http://127.0.0.1:8080/';
+// 花生壳代理地址
+const domain = 'http://509gl41925.zicp.vip:45760'
 
 var Axios = axios.create({
   baseURL: domain,
