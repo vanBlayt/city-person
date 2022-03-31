@@ -2,8 +2,8 @@ import React, { useContext, useEffect } from 'react';
 import './index.scss';
 import { TextField, Button } from '@material-ui/core';
 import { useForm } from 'react-hook-form';
-import { post } from '../../API/axios';
-import { LOGIN } from '../../API/index';
+import { post } from '../../axios';
+import * as Api from '../../axios/API';
 import { useNavigate } from "react-router-dom";
 import { SetLocalStorage } from 'utils/cache';
 
@@ -25,7 +25,7 @@ function Login() {
 
   async function loginSubmit(e: any) {
     try {
-      const res = await post(LOGIN, {}, e)
+      const res = await post(Api.Login, {}, e)
       if (res && res.data) {
         // 登录成功
         const { token = '' } = res.data;

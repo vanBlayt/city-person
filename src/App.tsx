@@ -8,6 +8,7 @@ import {
 import Login from './components/Login';
 import Home from './components/Home';
 import NotFound from './components/NotFound';
+import Story from './components/Story';
 
 // 路由鉴权
 import { RequireAuth } from '@/router/routerAuth'
@@ -16,8 +17,8 @@ import { RequireAuth } from '@/router/routerAuth'
 import { GetLocalStorage, SetLocalStorage } from 'utils/cache'
 
 // API
-import { get } from './API/axios'
-import { CHECKTOKEN } from './API'
+import { get } from './axios'
+import { CheckToken } from './axios/API'
 
 //状态管理
 import { useLoginStatusChange } from 'store/commonHook'
@@ -34,7 +35,7 @@ export default function App() {
       changeStatus(true);
       return;
     };
-    get(CHECKTOKEN).then((res) => {
+    get(CheckToken).then((res) => {
       // token 有效
       dispatchLoginStatus(true)
     }).catch((err) => {
@@ -50,6 +51,9 @@ export default function App() {
       <Routes>
         <Route path="" element={<RequireAuth >
           <Home />
+        </RequireAuth>} />
+        <Route path='story' element={<RequireAuth>
+          <Story />
         </RequireAuth>} />
         <Route path="login" element={<Login />}></Route>
         <Route path="*" element={<NotFound />} ></Route>
