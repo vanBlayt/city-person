@@ -15,19 +15,19 @@ interface Props {
 
 export default function Cards(props: Props) {
   const { story } = props;
-  const { _id, title, content, comments } = story;
+  const { id, title, content, comments } = story;
   const navigate = useNavigate();
 
   const handleStoryClick = useCallback(() => {
     const func: () => void = () => {
-      navigate('/story', { state: { _id } })
+      navigate('/story', { state: { id } })
     }
     func()
   }, [story])
 
   return (
-    <div onClick={handleStoryClick}>
-      <Card sx={{ maxWidth: 325 }}>
+    <div onClick={handleStoryClick} style={{ display: 'flex', justifyContent: 'center' }}>
+      <Card sx={{ maxWidth: 325, minWidth: 325, marginTop: 3 }}>
         <CardActionArea>
           <CardContent sx={{ padding: '10px 16px', border: '1px solid #ccc', borderRadius: '3px' }}>
             <Typography variant="h5" component="div">

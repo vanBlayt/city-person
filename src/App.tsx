@@ -9,6 +9,7 @@ import Login from './components/Login';
 import Home from './components/Home';
 import NotFound from './components/NotFound';
 import Story from './components/Story';
+import AddStory from './components/AddStory';
 
 // 路由鉴权
 import { RequireAuth } from '@/router/routerAuth'
@@ -55,6 +56,7 @@ export default function App() {
         <Route path='story' element={<RequireAuth>
           <Story />
         </RequireAuth>} />
+        <Route path="addStory" element={<RequireAuth><AddStory /></RequireAuth>}></Route>
         <Route path="login" element={<Login />}></Route>
         <Route path="*" element={<NotFound />} ></Route>
       </Routes>

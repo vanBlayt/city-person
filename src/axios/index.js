@@ -6,7 +6,7 @@ const domain = 'http://509gl41925.zicp.vip:45760'
 
 var Axios = axios.create({
   baseURL: domain,
-  timeout: 6000
+  timeout: 15000
 });
 // 请求拦截
 Axios.interceptors.request.use(

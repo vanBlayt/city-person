@@ -4,6 +4,7 @@ import Card from './components/cards'
 import { get } from '@/axios';
 import { GetStories } from '@/axios/API'
 import { StoriesIntro } from '@/types'
+import './index.scss';
 
 function Home() {
   const [stories, setStories] = useState<Array<StoriesIntro>>([])
@@ -22,12 +23,12 @@ function Home() {
   }, [])
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'center' }}>
+    <div className='home'>
       <AddRecord></AddRecord>
       {
         stories?.length > 0 && stories.map((story, index) => {
           return (
-            <Card story={story}></Card>
+            <Card story={story} key={index}></Card>
           )
         })
       }
