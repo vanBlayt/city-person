@@ -14,9 +14,7 @@ export default function Index() {
     values.images = values.images?.map(function (img: any) {
       return img.url
     });
-    console.log(values)
     post(CreateStory, {}, values).then((res) => {
-      console.log(res)
       if (res && res.data) {
         // add 成功
         Toast.show({
@@ -42,9 +40,7 @@ export default function Index() {
     formdata.append("file", file);
     return post(UploadImg, {}, formdata)
       .then((res) => {
-        console.log('res=>', res)
         if (res && res.data) {
-          console.log('res=>', res);
           return { url: res.data.url }
         }
       }).catch((err) => {
@@ -53,10 +49,6 @@ export default function Index() {
         })
         console.log('err=>', err)
       })
-  }
-
-  const onChange: (fileList: any) => any = (fileList) => {
-    console.log(fileList);
   }
 
 
@@ -77,7 +69,6 @@ export default function Index() {
         <Form.Item name="content" label="摘记" rules={[{ required: false }]}><Input></Input></Form.Item>
         <Form.Item name="images" label="图片"><ImageUploader
           value={fileList}
-          onChange={onChange}
           upload={uploadimage as any}
         /></Form.Item>
       </Form>

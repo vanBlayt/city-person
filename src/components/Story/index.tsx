@@ -15,8 +15,8 @@ export default function Index() {
   const [storyData, setStoryData] = useState<StoriesIntro>({} as StoriesIntro)
 
   const location = useLocation();
+  const id = location.state.id;
   useEffect(() => {
-    const id = location.state.id;
     const getStory: (id: string) => any = async (id) => {
       get(getSingleStory, { id }).then((res) => {
         if (res && res.data) {
@@ -28,7 +28,7 @@ export default function Index() {
       });
     }
     getStory(id);
-  }, [])
+  }, [id])
 
 
   return (
@@ -62,7 +62,7 @@ export default function Index() {
                 )
               )}
             </div>
-            <LeaveMessage />
+            <LeaveMessage id={id} />
           </div>
         ) : (
           <Typography variant="h6" component="div">loading...</Typography>

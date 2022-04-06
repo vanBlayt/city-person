@@ -43,6 +43,7 @@ export default function App() {
       // code 401
       dispatchLoginStatus(false);
       SetLocalStorage('token', '')
+      SetLocalStorage('user', '')
     }).finally(() => {
       changeStatus(true)
     })

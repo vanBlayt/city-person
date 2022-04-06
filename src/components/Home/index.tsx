@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import AddRecord from './components/addRecord'
 import Card from './components/cards'
 import { get } from '@/axios';
@@ -8,6 +8,7 @@ import './index.scss';
 
 function Home() {
   const [stories, setStories] = useState<Array<StoriesIntro>>([])
+  const [refresh, setRefresh] = useState(false);
   const getStories = () => {
     get(GetStories).then((res) => {
       if (res && res.data) {
@@ -20,7 +21,12 @@ function Home() {
   // 获取 stories 
   useEffect(() => {
     getStories();
-  }, [])
+  }, [refresh])
+
+  // 刷新数据
+  const updateData = useCallback(() => {
+    setRefresh(!refresh)
+  }, [refresh])
 
   return (
     <div className='home'>
@@ -28,7 +34,7 @@ function Home() {
       {
         stories?.length > 0 && stories.map((story, index) => {
           return (
-            <Card story={story} key={index}></Card>
+            <Card story={story} key={index} updateData={updateData}></Card>
           )
         })
       }

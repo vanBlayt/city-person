@@ -28,8 +28,10 @@ function Login() {
       const res = await post(Api.Login, {}, e)
       if (res && res.data) {
         // 登录成功
-        const { token = '' } = res.data;
+        const { token = '', user = {} } = res.data;
+        const { username } = user;
         SetLocalStorage('token', token);
+        SetLocalStorage('user', username);
         loginStatus(true);
         navigator('/');
       } else {

@@ -15,3 +15,15 @@ export const UploadImg = 'stories/uploadImg';
 
 // 创建 Story
 export const CreateStory = 'stories/createStory';
+
+// 删除 Story
+export const deleteStory = 'stories/deleteStory';
+
+// 获取所有留言
+export const getLeaveMessage = 'comments/';
+
+// 发布留言
+export const postLeaveMessage = 'comments/postComment';
+
+// 删除留言
+export const deleteLeaveMessage = 'comments/deleteComment';
